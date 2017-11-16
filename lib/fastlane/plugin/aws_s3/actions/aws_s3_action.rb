@@ -258,10 +258,10 @@ module Fastlane
         archive_zip = "#{archive_name}.zip"
         original_archive_basename = File.basename(archive)
         sh "zip -r #{archive_zip} \'#{original_archive_basename}\'"
-        full_archive_zip = "#{url_part}#{archive_zip}"
+        full_archive_zip_name = "#{url_part}#{archive_zip}"
         archive_zip_data = File.open(archive_zip, 'rb')
 
-        archive_url = self.upload_file(s3_client, s3_bucket, app_directory, archive_zip_name, archive_zip_data, acl, server_side_encryption)
+        archive_url = self.upload_file(s3_client, s3_bucket, app_directory, full_archive_zip_name, archive_zip_data, acl, server_side_encryption)
 
         Actions.lane_context[SharedValues::S3_XCARCHIVE_OUTPUT_PATH] = archive_url
         ENV[SharedValues::S3_XCARCHIVE_OUTPUT_PATH.to_s] = archive_url
